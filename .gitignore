@@ -6,3 +6,7 @@
 
 # Ignore user-installed local data which are specific to device and user
 *.local.1b.vic
+
+# Ignore system memories, which are specific to the Vicaria installation
+*.lmem.1b.vic
+*.smem.1b.vic
