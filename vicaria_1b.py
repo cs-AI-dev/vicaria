@@ -37,6 +37,7 @@ from os import mkdir
 from os import rmdir
 from os import system
 from os import getcwd
+from os import walk
 import sys
 from sys import argv
 import time
@@ -200,7 +201,7 @@ print(term.clear())
 print(term.center("Vicaria-1 Artificial General Intelligence System"))
 print(term.center("System startup complete."))
 print(" ╔" + "".join(["═" for x in range(term.width-4)]) + "╗ ")
-[print(" ║" + "".join([" " for x in range(term.width-4)]) + "║ ") for x in range(term.height-4)]
+[print(" ║" + "".join([" " for x in range(term.width-4)]) + "║ ") for x in range(term.height-5)]
 print(" ╚" + "".join(["═" for x in range(term.width-4)]) + "╝ ")
 
 dstack = []
@@ -208,7 +209,7 @@ dstack = []
 def display(txt):
     global dstack
     dstack = dstack[::-1]
-    dstack.append(txt)
+    dstack.append(txt + "".join([" " for x in range(term.width - (8+len(txt)))]))
     dstack = dstack[::-1]
     for x in range(len(dstack)):
         with term.location(3, term.height - (4 + x)): print(dstack[x])
@@ -217,6 +218,7 @@ while True:
     cmd_r = ""
     with term.location(3, term.height - 3): print("".join([" " for x in range(75)]))
     with term.location(3, term.height - 3): cmd_r = input("► ")
+    with term.location(3, term.height - 3): print("".join([" " for x in range(75)]))
 
     display("► " + cmd_r)
 
@@ -225,5 +227,18 @@ while True:
     name = cmd[0]
 
     if name == "subsystem":
-        if cmd[1] == "info":
-            pass
+        if cmd[1] == "contexts":
+            if cmd[2] == "info":
+                display("Gathering subsystem data, standby.")
+                size = 0
+                count = 0
+                for path, dirs, files in walk("E:/draco/contexts"):
+                    for f in files:
+                        count += 1
+                        fp = os.path.join(path, f)
+                        size += os.path.getsize(fp)
+                display("INFORMATION ─→ Context database subsystem")
+                display(" ├─→ PURPOSE: Store word contexts in a large database system.")
+                display(" ├─→ CONSUMED SPACE: " + str(size/1000) + " kB (" + str(size/1000000).split(".")[0] + "." + str(size/1000000).split(".")[1][:2] + " MB)")
+                display(" ├─→ FILES: " + str(count) + " files")
+                display(" └─→ VERSION: 1.0.0")
