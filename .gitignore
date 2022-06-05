@@ -1,0 +1,12 @@
+# Ignore static system data which take up hundreds of megabytes
+*.staticdata.1b.vic
+
+# Ignore environment system data which are specific to device
+*.environment.1b.vic
+
+# Ignore user-installed local data which are specific to device and user
+*.local.1b.vic
+
+# Ignore system memories, which are specific to the Vicaria installation
+*.lmem.1b.vic
+*.smem.1b.vic
